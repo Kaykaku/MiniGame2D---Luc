@@ -41,6 +41,11 @@ public class MainUI : FastSingleton<MainUI>
         }
     }
 
+    public void Setting()
+    {
+        GameManager.Ins.Pause();
+    }
+
     public void LoadText()
     {
         Player player = GameObject.FindObjectOfType<Player>();

@@ -62,6 +62,17 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        UIManager.Ins.OpenUI<Setting>();
+    }
+
+    public void Continue()
+    {
+        Time.timeScale = 0;
+    }
+
     public void Lose()
     {
         UIManager.Ins.OpenUI<Lose>();

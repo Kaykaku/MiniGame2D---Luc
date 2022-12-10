@@ -49,11 +49,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 3299146560610634221}
-  moveSpeed: 4
+  moveSpeed: 2.8
   attackRange: 1
   fireRate: 0.7
   damage: 2
   animator: {fileID: 6920003546485355313}
+  isDeath: 0
   spawnPoint: 3
 --- !u!114 &7127763056154170519
 MonoBehaviour:
@@ -68,9 +69,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HPBar: {fileID: 0}
-  maxHP: 20
+  maxHP: 15
   currentHP: 0
-  armor: 1
+  armor: 0.5
   currentRage: 0
   maxRage: 0
 --- !u!61 &-2759328118227251785

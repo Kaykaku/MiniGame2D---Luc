@@ -12,6 +12,34 @@ public class MainUI : FastSingleton<MainUI>
     [SerializeField] private TextMeshProUGUI speedText;
     [SerializeField] private TextMeshProUGUI weaponText;
     [SerializeField] private TextMeshProUGUI fireRateText;
+    [SerializeField] private Image joyStickButton;
+    [SerializeField] private TextMeshProUGUI AText;
+    [SerializeField] private TextMeshProUGUI DText;
+    [SerializeField] private TextMeshProUGUI WText;
+    [SerializeField] private TextMeshProUGUI SText;
+    private Vector3 moveDir;
+
+    private void Update()
+    {
+        moveDir = joyStickButton.rectTransform.anchoredPosition.normalized;
+        ChangeColor(moveDir.x < 0 , AText);
+        ChangeColor(moveDir.x > 0 , DText);
+        ChangeColor(moveDir.y < 0 , SText);
+        ChangeColor(moveDir.y > 0 , WText);
+        
+    }
+
+    public void ChangeColor(bool check, TextMeshProUGUI tm)
+    {
+        if (check)
+        {
+            tm.color = Color.cyan;
+        }
+        else
+        {
+            tm.color = Color.white;
+        }
+    }
 
     public void LoadText()
     {

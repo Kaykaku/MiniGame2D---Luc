@@ -20,6 +20,7 @@ public class GameManager : Singleton<GameManager>
         Input.multiTouchEnabled = false;
         Application.targetFrameRate = 60;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        gameState = GameState.OnInit;
 
         int maxScreenHeight = 1280;
         float ratio = (float)Screen.currentResolution.width / (float)Screen.currentResolution.height;
@@ -44,7 +45,7 @@ public class GameManager : Singleton<GameManager>
 
     public void StartWave()
     {
-        
+        if (gameState == GameState.End) return;
         Time.timeScale = 0; 
         UIManager.Ins.OpenUI<Bonus>();
         Wave.instance.OnInit();
@@ -53,6 +54,7 @@ public class GameManager : Singleton<GameManager>
     public void Win()
     {
         UIManager.Ins.OpenUI<Win>();
+        Time.timeScale = 0;
     }
 
     public void MainMenu()
@@ -63,17 +65,18 @@ public class GameManager : Singleton<GameManager>
     public void Lose()
     {
         UIManager.Ins.OpenUI<Lose>();
+        Time.timeScale = 0;
     }
 
 
-    //public static void ChangeState(GameState state)
-    //{
-    //    gameState = state;
-    //}
+    public static void ChangeState(GameState state)
+    {
+        gameState = state;
+    }
 
-    //public static bool IsState(GameState state)
-    //{
-    //    return gameState == state;
-    //}
+    public static bool IsState(GameState state)
+    {
+        return gameState == state;
+    }
 
 }

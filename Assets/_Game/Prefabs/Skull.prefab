@@ -54,6 +54,7 @@ MonoBehaviour:
   fireRate: 1
   damage: 2
   animator: {fileID: 0}
+  isDeath: 0
   spawnPoint: 6
 --- !u!114 &7394428507875513213
 MonoBehaviour:
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HPBar: {fileID: 0}
-  maxHP: 0
+  maxHP: 20
   currentHP: 0
   armor: 0
   currentRage: 0

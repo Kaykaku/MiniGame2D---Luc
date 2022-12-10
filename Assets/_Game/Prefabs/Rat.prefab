@@ -55,6 +55,7 @@ MonoBehaviour:
   fireRate: 1
   damage: 1
   animator: {fileID: 5334524458931645740}
+  isDeath: 0
   spawnPoint: 1
 --- !u!114 &1163406320
 MonoBehaviour:
@@ -342,7 +343,7 @@ PrefabInstance:
     - target: {fileID: 3209174639736518469, guid: a59110589e687644999b1a679073a9a4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 3209174639736518469, guid: a59110589e687644999b1a679073a9a4,
         type: 3}

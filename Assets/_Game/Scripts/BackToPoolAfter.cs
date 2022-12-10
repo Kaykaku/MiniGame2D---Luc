@@ -10,7 +10,6 @@ public class BackToPoolAfter : MonoBehaviour
     {
         StartCoroutine(BackToPool());
     }
-
     IEnumerator BackToPool()
     {
         yield return new WaitForSeconds(timeExist);

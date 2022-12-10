@@ -23,6 +23,7 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.IsDeath) return;
         fireRate = player.FireRate;
         attackRange = player.AttackRange;
         damage = player.Damage;
@@ -38,6 +39,7 @@ public class Weapon : MonoBehaviour
         }
 
     }
+
 
     void DetectTarget()
     {
@@ -74,5 +76,4 @@ public class Weapon : MonoBehaviour
             bullet.GetComponent<BulletBehavior>().SetDirection(dir,damage);
         }
     }
-
 }

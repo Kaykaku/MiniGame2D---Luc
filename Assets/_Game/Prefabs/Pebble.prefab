@@ -49,11 +49,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 8898123231276168991}
-  moveSpeed: 4
+  moveSpeed: 3.4
   attackRange: 1.5
   fireRate: 0.5
   damage: 2
   animator: {fileID: 1946955734835556889}
+  isDeath: 0
   spawnPoint: 4
 --- !u!114 &2207143639784622352
 MonoBehaviour:

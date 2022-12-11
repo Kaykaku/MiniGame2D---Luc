@@ -16,7 +16,8 @@ public class Player : Character
         public Cooldown cooldownUI;
     }
 
-    protected int currentAnim;
+    protected PlayerState currentState;
+    protected PlayerDirect currentDirect;
     [SerializeField] protected Image joyStickButton;
     [SerializeField] public List<Weapon> weapons;
     [SerializeField] public List<Skill> skills;
@@ -39,15 +40,15 @@ public class Player : Character
     private void Control()
     {
         if(isDeath) return;
-        if (Input.GetKeyDown(KeyCode.E) && !skills[0].isCoolDown)
+        if (Input.GetKeyDown(skills[0].keyCode) && !skills[0].isCoolDown)
         {
             StartCoroutine(FireRateUp());
         }
-        if (Input.GetKeyDown(KeyCode.F) && !skills[1].isCoolDown)
+        if (Input.GetKeyDown(skills[1].keyCode) && !skills[1].isCoolDown)
         {
             StartCoroutine(SkillBoom());
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !skills[2].isCoolDown)
+        if (Input.GetKeyDown(skills[2].keyCode) && !skills[2].isCoolDown)
         {
             StartCoroutine(SkillSpeedUp());
         }
@@ -62,48 +63,64 @@ public class Player : Character
             moveDir = new Vector3(horizonltalInput, verticalInput, 0);
             joyStickButton.rectTransform.anchoredPosition = moveDir*70;
         }
-        
-        int newAnim;
+
+        PlayerDirect newDirect;
+        PlayerState newState;
         if (moveDir == Vector3.zero)
         {
-            newAnim = 0;
+            ChangeAnim(currentDirect, PlayerState.Idle);
+            return;
         }
         else
         {
-            newAnim = 3;
+            newState = PlayerState.Walk;
+            if (moveSpeed >=4.5)
+            {
+                newState = PlayerState.Run;
+            }
             transform.position = Vector3.Lerp(transform.position, transform.position + moveDir, Time.deltaTime * moveSpeed);
         }
 
-        if (Mathf.Abs(moveDir.y) >= Mathf.Abs(moveDir.x))
+        if(Mathf.Abs(moveDir.x) < Mathf.Abs(moveDir.y))
         {
-            if (moveDir.y > 0)
+            if (moveDir.y <= 0)
             {
-                newAnim += 0;
+                newDirect = PlayerDirect.Down;
             }
             else
             {
-                newAnim += 1;
+                newDirect = PlayerDirect.Top;
             }
         }
         else
         {
-            if (moveDir.z >= 0)
+            if (moveDir.x <= 0)
             {
-                newAnim += 2;
+                newDirect = PlayerDirect.Left;
             }
             else
             {
-                newAnim += 3;
+                newDirect = PlayerDirect.Right;
             }
         }
-        ChangeAnim(newAnim);
+        ChangeAnim(newDirect, newState);
     }
 
-    private void ChangeAnim(int animName)
+    private void ChangeAnim(PlayerDirect direct,PlayerState action)
     {
-        if (animName == currentAnim || !isDeath) return;
-        currentAnim = animName;
-        animator.SetInteger("Action", currentAnim);
+        if ((action == currentState && direct == currentDirect) || isDeath) return;
+        currentState = action;
+        currentDirect = direct;
+        animator.SetInteger("Direct",Mathf.Clamp((int)direct,0,2));
+        animator.SetTrigger(currentState.ToString());
+        if (direct == PlayerDirect.Right)
+        {
+            model.transform.rotation = Quaternion.Euler(0,180,0);
+        }
+        else
+        {
+            model.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     public void AddBonus(BonusType bonus)

@@ -16,7 +16,7 @@ public class Boom : MonoBehaviour
     ////When detonated, will deal damage to all characters in range
     private void OnDisable()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range * 2);
         foreach (Collider2D collider in colliders)
         {
             Health characterHealth = collider.GetComponent<Health>();

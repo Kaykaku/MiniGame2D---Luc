@@ -4,14 +4,11 @@ using UnityEngine;
 
 public enum PlayerState
 {
-    IdleDown,
-    IdleTop,
-    IdleLeft,
-    IdleRight,
-    WalkDown,
-    WalkTop,
-    WalkLeft,
-    WalkRight,
+     Idle,Walk,Run
+}
+public enum PlayerDirect
+{
+    Down, Top,  Left, Right
 }
 
 public enum EnemyState { 

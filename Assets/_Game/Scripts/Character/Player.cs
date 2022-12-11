@@ -6,12 +6,21 @@ using UnityEngine.UI;
 
 public class Player : Character
 {
+    [System.Serializable]
+    public class Skill
+    {
+        public string name;
+        public Sprite image;
+        public bool isCoolDown;
+        public KeyCode keyCode;
+        public Cooldown cooldownUI;
+    }
+
     protected int currentAnim;
     [SerializeField] protected Image joyStickButton;
     [SerializeField] public List<Weapon> weapons;
-    [SerializeField] protected Cooldown[] skills;
+    [SerializeField] public List<Skill> skills;
     
-    protected bool[] skillActive = new bool[3];
     private Vector3 moveDir;
 
     private void Start()
@@ -30,15 +39,15 @@ public class Player : Character
     private void Control()
     {
         if(isDeath) return;
-        if (Input.GetKeyDown(KeyCode.E) && !skillActive[0])
+        if (Input.GetKeyDown(KeyCode.E) && !skills[0].isCoolDown)
         {
             StartCoroutine(FireRateUp());
         }
-        if (Input.GetKeyDown(KeyCode.F) && !skillActive[1])
+        if (Input.GetKeyDown(KeyCode.F) && !skills[1].isCoolDown)
         {
             StartCoroutine(SkillBoom());
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !skillActive[2])
+        if (Input.GetKeyDown(KeyCode.Space) && !skills[2].isCoolDown)
         {
             StartCoroutine(SkillSpeedUp());
         }
@@ -150,37 +159,40 @@ public class Player : Character
 
     public IEnumerator SkillBoom()
     {
+        UIManager.Ins.OpenUI<SkillUI>().SetInfo(skills[1].image, skills[1].name);
         GameObject boom = Pool2.instance.SpawnFromPool("Boom");
         boom?.transform.SetPositionAndRotation(transform.position,Quaternion.identity);
-        skills[1].OnInit(22);
-        skillActive[1] = true;
+        skills[1].cooldownUI.OnInit(22);
+        skills[1].isCoolDown = true;
         yield return new WaitForSeconds(22f);
-        skillActive[1] = false;
+        skills[1].isCoolDown = false;
     }
 
     public IEnumerator SkillSpeedUp()
     {
+        UIManager.Ins.OpenUI<SkillUI>().SetInfo(skills[2].image, skills[2].name);
         moveSpeed = moveSpeed * 1.5f;
         MainUI.instance.LoadText();
-        skills[2].OnInit(15);
-        skillActive[2] = true;
+        skills[2].cooldownUI.OnInit(15);
+        skills[2].isCoolDown = true;
         yield return new WaitForSeconds(3f);
         moveSpeed = moveSpeed * 2 / 3;
         MainUI.instance.LoadText();
         yield return new WaitForSeconds(12f);
-        skillActive[2] = false;
+        skills[2].isCoolDown = false;
     }
 
     public IEnumerator FireRateUp()
     {
+        UIManager.Ins.OpenUI<SkillUI>().SetInfo(skills[0].image, skills[0].name);
         fireRate = fireRate * 2/3f;
         MainUI.instance.LoadText();
-        skills[0].OnInit(20);
-        skillActive[0] = true;
+        skills[0].cooldownUI.OnInit(20);
+        skills[0].isCoolDown = true;
         yield return new WaitForSeconds(5f);
         fireRate = fireRate * 3/2 ;
         MainUI.instance.LoadText();
         yield return new WaitForSeconds(15f);
-        skillActive[0] = false;
+        skills[0].isCoolDown = false;
     }
 }

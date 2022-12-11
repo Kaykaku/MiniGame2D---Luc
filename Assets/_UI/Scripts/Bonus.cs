@@ -12,13 +12,15 @@ public class Bonus : UICanvas
 
     private void OnEnable()
     {
+        GameManager.Ins.StopTime();
+        waveText.text = "Wave " + Wave.instance.CurrentWave + " Reward !";
+        randomCards.Clear();
+
         foreach (GameObject card in cards)
         {
             card.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 1000f, 0f);
         }
 
-        waveText.text = "Wave " + Wave.instance.CurrentWave + " Reward !";
-        randomCards.Clear();
         while (randomCards.Count!=3)
         {
             int rd = Random.Range(0,cards.Count);
@@ -32,8 +34,9 @@ public class Bonus : UICanvas
     
     public void BonusButton(int bonus)
     {
-        Time.timeScale = 1;
+        GameManager.Ins.RunTime();
         GameObject.FindObjectOfType<Player>().AddBonus((BonusType) bonus);
+        UIManager.Ins.OpenUI<CountDown>();
         Close();
     }
 }

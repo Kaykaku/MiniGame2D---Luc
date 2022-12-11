@@ -815,9 +815,22 @@ MonoBehaviour:
   - {fileID: 1632388279}
   - {fileID: 570892812}
   skills:
-  - {fileID: 1295639866}
-  - {fileID: 303019718}
-  - {fileID: 563501556}
+  - name: I AM THE BEST
+    image: {fileID: 2544130169632828992, guid: bb842fe46e994e6b903ffa8af9ae0f36, type: 3}
+    isCoolDown: 0
+    keyCode: 101
+    cooldownUI: {fileID: 1295639866}
+  - name: ART IS EXPLOSION
+    image: {fileID: -6933376847463828097, guid: 37db6fd26ee44919bffee8a330bd9f5d,
+      type: 3}
+    isCoolDown: 0
+    keyCode: 102
+    cooldownUI: {fileID: 303019718}
+  - name: WHO IS THE FLASH ?
+    image: {fileID: 3003789169655790119, guid: acb8cab598694f619dd44693cb68fb4e, type: 3}
+    isCoolDown: 0
+    keyCode: 32
+    cooldownUI: {fileID: 563501556}
 --- !u!114 &675082556
 MonoBehaviour:
   m_ObjectHideFlags: 0

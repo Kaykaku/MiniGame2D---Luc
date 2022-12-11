@@ -46,7 +46,6 @@ public class GameManager : Singleton<GameManager>
     public void StartWave()
     {
         if (gameState == GameState.End) return;
-        Time.timeScale = 0; 
         UIManager.Ins.OpenUI<Bonus>();
         Wave.instance.OnInit();
     }
@@ -55,7 +54,7 @@ public class GameManager : Singleton<GameManager>
     {
         UIManager.Ins.OpenUI<Win>();
         gameState = GameState.End;
-        Time.timeScale = 0;
+        
     }
 
     public void MainMenu()
@@ -65,19 +64,19 @@ public class GameManager : Singleton<GameManager>
 
     public void Pause()
     {
-        Time.timeScale = 0;
+        StopTime();
         UIManager.Ins.OpenUI<Setting>();
     }
 
     public void Continue()
     {
-        Time.timeScale = 0;
+        RunTime();
     }
 
     public void Lose()
     {
         UIManager.Ins.OpenUI<Lose>();
-        Time.timeScale = 0;
+        StopTime();
         gameState = GameState.End;
     }
 
@@ -92,4 +91,13 @@ public class GameManager : Singleton<GameManager>
         return gameState == state;
     }
 
+    public void StopTime()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void RunTime()
+    {
+        Time.timeScale = 1;
+    }
 }

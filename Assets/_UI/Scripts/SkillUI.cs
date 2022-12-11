@@ -4,21 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CountDown : UICanvas
+public class SkillUI : UICanvas
 {
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI skillText;
+    [SerializeField] private Image skillImage;
     [SerializeField] private float time;
     private float timer;
 
+    public void SetInfo(Sprite skillImage, string skillText)
+    {
+        this.skillImage.sprite = skillImage;
+        this.skillText.text = skillText;
+    }
 
     private void Update()
     {
         timer += Time.unscaledDeltaTime;
-        GameManager.Ins.StopTime();
-        text.text = Mathf.Round(time - timer).ToString();
         if (timer < time) return;
         timer = 0;
-        GameManager.Ins.RunTime();
         Close();
     }
 }

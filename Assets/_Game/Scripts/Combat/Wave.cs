@@ -13,8 +13,8 @@ public class Wave : FastSingleton<Wave>
         wave++;
         if(wave > 6)
         {
-            GameManager.ChangeState(GameState.End);
             GameManager.Ins.Win();
+            return;
         }
         Spawner.instance.spawnPoint = Mathf.Clamp(wave * 5 + 5, 10, 50);
         Spawner.instance.spawnRate = Mathf.Clamp(1.5f - wave * 0.1f, 0.5f, 2f);

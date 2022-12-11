@@ -54,6 +54,7 @@ public class GameManager : Singleton<GameManager>
     public void Win()
     {
         UIManager.Ins.OpenUI<Win>();
+        gameState = GameState.End;
         Time.timeScale = 0;
     }
 
@@ -77,6 +78,7 @@ public class GameManager : Singleton<GameManager>
     {
         UIManager.Ins.OpenUI<Lose>();
         Time.timeScale = 0;
+        gameState = GameState.End;
     }
 
 
